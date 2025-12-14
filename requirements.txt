@@ -1,0 +1,12 @@
+streamlit
+pandas
+sqlalchemy
+psycopg2-binary
+python-dotenv
+seaborn
+matplotlib
+fastapi
+uvicorn
+requests
+pytest
+httpx

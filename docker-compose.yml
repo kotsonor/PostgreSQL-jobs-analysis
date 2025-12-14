@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${sql_key}
+      - POSTGRES_DB=sql_course
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Load the initialization scripts
+      - ./sql_load:/docker-entrypoint-initdb.d
+      # Mount CSV files for loading
+      - ./csv_files:/var/lib/postgresql/csv_files
+    ports:
+      - "5433:5432"
+
+  api:
+    build: .
+    command: uvicorn api:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_NAME=sql_course
+      - sql_key=${sql_key}
+      - PYTHONPATH=/app/src
+    volumes:
+      - .:/app
+
+  streamlit:
+    build: .
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    environment:
+      - API_URL=http://api:8000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_NAME=sql_course
+      - sql_key=${sql_key}
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
