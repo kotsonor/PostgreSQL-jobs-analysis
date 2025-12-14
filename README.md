@@ -27,7 +27,7 @@ This project analyzes job market data (salaries, skills, job titles) using a SQL
    ```
 
 2. **Prepare Data:**
-   The CSV data files are too large for GitHub. Please download the dataset and place the following files in the `csv_files/` directory:
+   The CSV data files are too large for GitHub. Please download the dataset from [this Google Drive folder](https://drive.google.com/drive/folders/1moeWYoUtUklJO6NJdWo9OV8zWjRn0rjN) (created by Luke Barousse from [lukebarousse.com/sql](https://www.lukebarousse.com/sql)) and place the following files in the `csv_files/` directory:
    - `company_dim.csv`
    - `job_postings_fact.csv`
    - `skills_dim.csv`
